@@ -32,6 +32,7 @@ public class CallTool {
             System.out.println("Tool: " + tool.name() + ", description: " + tool.description() + ", schema: " + tool.inputSchema());
         });
 
+
         McpSchema.CallToolResult upperCase = client.callTool( new McpSchema.CallToolRequest("toUpperCase", Map.of("text", "its lower")));
         System.out.println(upperCase);
 /*

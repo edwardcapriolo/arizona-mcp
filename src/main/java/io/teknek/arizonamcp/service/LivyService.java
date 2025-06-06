@@ -1,4 +1,4 @@
-package io.teknek.arizonamcp;
+package io.teknek.arizonamcp.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,18 +7,19 @@ import io.teknek.arizonamcp.livy.SessionResponse;
 import io.teknek.arizonamcp.livy.StatementRequest;
 import io.teknek.arizonamcp.livy.StatementResponse;
 
-import org.apache.livy.LivyClientBuilder;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.net.URI;
 
 @Service
 public class LivyService {
+
+
 
     private RestTemplate restTemplate;
     private HttpHeaders livyPostHeaders = new HttpHeaders();

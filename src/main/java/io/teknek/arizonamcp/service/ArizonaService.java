@@ -1,4 +1,4 @@
-package io.teknek.arizonamcp;
+package io.teknek.arizonamcp.service;
 
 import io.teknek.arizonamcp.livy.SessionRequest;
 import io.teknek.arizonamcp.livy.SessionResponse;
