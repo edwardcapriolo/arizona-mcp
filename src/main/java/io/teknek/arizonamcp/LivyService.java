@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URI;
 
-//@Service
+@Service
 public class LivyService {
 
     private RestTemplate restTemplate;
@@ -44,9 +44,20 @@ public class LivyService {
         }
     }
 
-    public StatementResponse createStatement(Integer sessionId, StatementRequest request){
+    public SessionResponse findSession(SessionResponse session){
+        ResponseEntity<SessionResponse> resp = restTemplate.exchange(livyUrl + "/sessions/" + session.id,
+                HttpMethod.GET, new HttpEntity<>(livyGetHeaders), SessionResponse.class);
+        if (resp.getStatusCode().is2xxSuccessful()){
+            return resp.getBody();
+        } else {
+            throw new RuntimeException("request returned " + resp.getStatusCode());
+        }
+    }
+
+
+    public StatementResponse createStatement(SessionResponse session, StatementRequest request){
         ResponseEntity<StatementResponse> resp =
-                restTemplate.exchange(this.livyUrl+"/sessions/" + sessionId + "/statements", HttpMethod.POST,
+                restTemplate.exchange(this.livyUrl + "/sessions/" + session.id + "/statements", HttpMethod.POST,
                         new HttpEntity<>(map(request), livyPostHeaders), StatementResponse.class);
         if (resp.getStatusCode().is2xxSuccessful()){
             return resp.getBody();
@@ -54,9 +65,11 @@ public class LivyService {
             throw new RuntimeException("request returned " + resp.getStatusCode());
         }
     }
-    public StatementResponse getStatementResponse(Integer sessionId, Integer statementId){
+
+
+    public StatementResponse findStatement(SessionResponse session, StatementResponse statement){
         ResponseEntity<StatementResponse> resp =
-                restTemplate.exchange(this.livyUrl+"/sessions/" + sessionId + "/statements/"+statementId, HttpMethod.GET,
+                restTemplate.exchange(this.livyUrl + "/sessions/" + session.id + "/statements/" + statement.id, HttpMethod.GET,
                         new HttpEntity<>(livyGetHeaders), StatementResponse.class);
         if (resp.getStatusCode().is2xxSuccessful()){
             return resp.getBody();
