@@ -9,6 +9,7 @@ import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -53,10 +54,6 @@ public class ChatController {
 
     @RequestMapping("/table/find/{tableName}")
     public String tableFind(@PathVariable String tableName){
-        /*
-        PromptTemplate pt = new PromptTemplate(""" 
-                list the tables look for a table with a name close to {tableName} then get the columns for that table
-                """);*/
         PromptTemplate pt = new PromptTemplate(""" 
                 list the tables. Find one table with a name similar to {tableName}. Then get the columns for that table.  
                 """);
@@ -65,12 +62,24 @@ public class ChatController {
         return callResponse.content();
     }
 
+
+    @RequestMapping("/rawPrompt")
+    public String rawPrompt(@RequestParam("promptParam") String promptParam){
+        PromptTemplate pt = new PromptTemplate(""" 
+                {promptParam}  
+                """);
+        Prompt prompt = pt.create(java.util.Map.of("promptParam", promptParam));
+        ChatClient.CallResponseSpec callResponse = chatClient.prompt(prompt).tools(this).call();
+        return callResponse.content();
+    }
+
+
     @Tool(description = "list the tables in the database", name = "list_tables")
     public List<String> findDatabases(){
         return List.of("eds_table", "joes_table");
     }
 
-    @Tool(description = "get columns in table", name = "get_columns")
+    @Tool(description = "get columns in a table", name = "get_columns")
     public List<String> getColumnsInTable(String tableName){
         if (tableName.equalsIgnoreCase("eds_table")){
             return List.of("id", "name");
