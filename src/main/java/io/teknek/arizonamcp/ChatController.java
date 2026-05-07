@@ -90,5 +90,13 @@ public class ChatController {
     }
 
 
+    @Tool(description = "system time expressed as milliseconds since epoch midnight January 1 1970AD ", name = "time_in_millis")
+    public Long timeInMillis(){
+        return System.currentTimeMillis();
+    }
 
+    @Tool(description = "where we are now", name = "where_are_we")
+    public String whereAreWe(){
+        return "White Plains, NY";
+    }
 }

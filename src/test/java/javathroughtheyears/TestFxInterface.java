@@ -67,6 +67,7 @@ public class TestFxInterface {
     void newWay(){
         Callable<Integer> something = () -> 4;
         try (ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor()) {
+
             Future<Integer> f = executor.submit(something);
             assertEquals(4, f.get());
         } catch (ExecutionException | InterruptedException e) {

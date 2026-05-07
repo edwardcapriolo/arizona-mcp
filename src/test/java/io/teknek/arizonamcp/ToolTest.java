@@ -29,7 +29,6 @@ public class ToolTest {
 
     @Test
     public void callTool() throws InterruptedException {
-
         var transport = HttpClientSseClientTransport.builder("http://localhost:" + localServerPort).build();
         try(var client = McpClient.sync(transport).build()) {
             client.initialize();
