@@ -30,7 +30,7 @@ public class ApplawsPolicyEngine {
                     trace.add(f.description() + " null return. Rule does not match");
                     break;
                 } else if  (!(o instanceof List)){
-                    trace.add(f.description() + " returned non bool value " + o.getClass() +" Rule specification is bad");
+                    trace.add(f.description() + " returned non bool value " + o.getClass() + " Rule specification is bad");
                     break;
                 } else if (((List<?>) o).isEmpty() ){
                     trace.add(f.description() + " returned false. Rule does not match");

@@ -1,0 +1,16 @@
+kubernetes:
+  enabled: true
+  kubeconfig: /Users/edward.capriolo/.kube/config
+  default-namespace: loadtest
+
+logging:
+  level:
+    root: INFO
+    io.teknek.arizonamcp: TRACE
+    io.modelcontextprotocol: TRACE
+    io.modelcontextprotocol.server: TRACE
+    io.modelcontextprotocol.spec: TRACE
+    org.springframework.ai: TRACE
+    org.springframework.ai.tool: TRACE
+    org.springframework.ai.mcp: TRACE
+    org.springframework.web: DEBUG

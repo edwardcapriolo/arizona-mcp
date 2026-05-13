@@ -1,0 +1,8 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+kubernetes:
+  enabled: true
+  kubeconfig: /Users/edward.capriolo/.kube/config
+  default-namespace: loadtest

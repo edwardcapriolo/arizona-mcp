@@ -1,10 +1,9 @@
 package io.teknek.arizonamcp.service;
 
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.chat.prompt.SystemPromptTemplate;
 import org.springframework.ai.template.st.StTemplateRenderer;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,13 +15,13 @@ import java.util.Map;
 
 @Component
 @RestController
+@ConditionalOnProperty(prefix = "jira", name = "enabled", havingValue = "true")
 public class JiraController {
 
-    private final ChatClient chatClient;
     private final JiraService jiraService;
 
-    public JiraController(ChatClient.Builder chatClientBuilder, JiraService jiraService){
-        this.chatClient = chatClientBuilder.build();
+    public JiraController(JiraService jiraService){
+
         this.jiraService = jiraService;
     }
 

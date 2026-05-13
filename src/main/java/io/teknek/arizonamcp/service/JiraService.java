@@ -5,6 +5,7 @@ import com.atlassian.jira.rest.client.api.domain.Issue;
 import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.method.MethodToolCallbackProvider;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@ConditionalOnProperty(prefix = "jira", name = "enabled", havingValue = "true")
 public class JiraService {
 
     private final JiraRestClient jiraRestClient;
