@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.NONE,
@@ -27,5 +28,18 @@ class KubernetesToolsIT {
         Assertions.assertNotNull(pods);
         System.out.println(pods);
         Assertions.assertFalse(pods.isEmpty(), "Expected pods from the loadtest namespace");
+
+        // Fetch logs via label selector instead of single pod
+        String logs = kubernetesService.getPodLogs(
+                "external",
+                null,
+                "app.kubernetes.io/name=httpcore",
+                null,
+                200,
+                null
+        );
+        System.out.println(logs);
+        Assertions.assertNotNull(logs);
+
     }
 }
